@@ -10,15 +10,23 @@ function App({ Component, pageProps }) {
     )
 }
 
-const theme = {
-  primary: "orange",
+interface ThemeProps {
+  theme: Theme
+}
 
+interface Theme {
+  primary: string
+  background: string
+}
+
+const theme: Theme = {
+  primary: "orange",
   background: "black"
 }
 
 const Background = createGlobalStyle`
   body {
-    background: ${props => props.theme.background};
+    background: ${(props: ThemeProps) => props.theme.background};
   }
     
   
