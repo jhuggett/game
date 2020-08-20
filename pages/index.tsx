@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 export default function Home() {
 
   const [currDate, setCurrDate] = useState((new Date()).toLocaleTimeString())
-  const [color, setColor] = useState()
+  const [color, setColor] = useState<string | null>(null)
 
   useEffect(() => {
     const onKeyDown = ({ key }) => {
