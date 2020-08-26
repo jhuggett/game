@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components'
 import { useState, useEffect } from 'react'
-import { getRandomItem, getRandomBool, getRandomNumber } from 'utils'
+import { getRandomItem, getRandomBool, getRandomNumber, range, shuffle } from 'utils'
 import { SelectList } from 'components'
 
 export default function Home() {
@@ -15,10 +15,9 @@ export default function Home() {
   const [input, setInput] = useState<number | null>(null)
 
   useEffect(() => {
-    console.log(input);
     if (typeof(input) == 'number') setOutput(inputs[input])
     setInput(null)
-    setInputs([`${getRandomNumber(0, 10)}`])
+    setInputs(shuffle(range(0, getRandomNumber(1, 20)).map(num => `${num}`)))
   }, [input])
 
   return (
@@ -50,10 +49,12 @@ const Footer = styled.div``
 const Output = styled.div`
   color: ${props => props.theme.primary};
   text-align: center;
+  
 `
 
 const Input = styled.div`
   color: ${props => props.theme.primary};
   text-align: center;
-  padding-top: 5em;
+  margin: 5em auto;
+  width: 50%;
 `
