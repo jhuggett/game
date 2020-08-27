@@ -23,6 +23,7 @@ const List = styled.div`
 `
 
 const Choice = styled.div`
+  user-select: none;
   margin: .25em .25em .25em .25em;
   padding: 1em 1em 1em 1em;
   border: 0.1em solid transparent;
