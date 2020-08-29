@@ -1,34 +1,48 @@
 import styled, { keyframes } from 'styled-components'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { getRandomItem, getRandomBool, getRandomNumber, range, shuffle } from 'utils'
 import { SelectList } from 'components'
+import { ActionHandler } from 'action-handler'
+
+
 
 export default function Home() {
 
-  const [inputs, setInputs] = useState<string[]>([
-    "1",
-    "2",
-    "3"
-  ])
+  
+  const something = useRef(new ActionHandler())  
 
   const [output, setOutput] = useState<string>('')
-  const [input, setInput] = useState<number | null>(null)
+  const [actions, setActions] = useState<string[]>([])
 
   useEffect(() => {
-    if (typeof(input) == 'number') setOutput(inputs[input])
-    setInput(null)
-    setInputs(shuffle(range(0, getRandomNumber(1, 20)).map(num => `${num}`)))
-  }, [input])
+    
+    if (output == '') {
+      something.current.setActions()
+      
+      setOutput('You are standing in a forest.')
+      setActions(something.current.availibleActions.map(action => action.content))
+    }
+
+  }, [])
+
+  const act = (i: number) => {
+    
+    
+
+    const newOutput = something.current.act(i)
+    setOutput(newOutput)
+    setActions(something.current.availibleActions.map(action => action.content))
+  }
 
   return (
     <>
-      <Header></Header>
+      <PageHeader></PageHeader>
       <Body>
         <Output>
           {output}
         </Output>
         <Input>
-          <SelectList inputs={inputs} setChosen={setInput} />
+          <SelectList inputs={actions} setChosen={act} />
         </Input>
       </Body>
       <Footer></Footer>
@@ -36,7 +50,7 @@ export default function Home() {
   )
 }
 
-const Header = styled.div`
+const PageHeader = styled.div`
   height: 20px;
 `
 
