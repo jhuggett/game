@@ -9,7 +9,7 @@ export const SelectList = ({ inputs, setChosen } : SelectListProps) => {
   return (
     <List>
       {inputs.map((choice, i) => {
-        return <Choice onClick={() => setChosen(i)}>{choice}</Choice>
+        return <Choice key={choice} onClick={() => setChosen(i)}>{choice}</Choice>
       })}
     </List>
   )
@@ -23,8 +23,9 @@ const List = styled.div`
 `
 
 const Choice = styled.div`
+  user-select: none;
   margin: .25em .25em .25em .25em;
-  padding: 1em 1em 1em 1em;
+  padding: 15px 15px 15px 15px;
   border: 0.1em solid transparent;
   :hover {
     border: 0.1em solid ${props => props.theme.primary};
