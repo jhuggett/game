@@ -20,7 +20,7 @@ export default function Home() {
       something.current.setActions()
       
       setOutput('You are standing in a forest.')
-      setActions(something.current.availibleActions.map(action => action.content))
+      setActions(something.current.availibleActions.map(action => action.description))
     }
 
   }, [])
@@ -31,7 +31,7 @@ export default function Home() {
 
     const newOutput = something.current.act(i)
     setOutput(newOutput)
-    setActions(something.current.availibleActions.map(action => action.content))
+    setActions(something.current.availibleActions.map(action => action.description))
   }
 
   return (
