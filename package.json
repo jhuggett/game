@@ -23,6 +23,7 @@
     "@types/react": "^16.9.46",
     "@types/styled-components": "^5.1.2",
     "jest": "^26.4.1",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.7",
+    "ts-jest": "^25.2.0"
   }
 }
