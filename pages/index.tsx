@@ -2,7 +2,7 @@ import styled, { keyframes } from 'styled-components'
 import { useState, useEffect, useRef } from 'react'
 import { getRandomItem, getRandomBool, getRandomNumber, range, shuffle } from 'utils'
 import { SelectList } from 'components'
-import { ActionHandler } from 'action-handler'
+import { ActionHandler } from '../events'
 
 
 
