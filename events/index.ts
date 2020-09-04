@@ -6,10 +6,8 @@ export * from './visit-village'
 
 export interface Action {
   description: string
-
   act: () => ActionManifest
 }
-
 
 export interface Find {
   action: Action

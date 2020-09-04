@@ -1,29 +1,34 @@
-import { ActionManifest, Find, followRoad } from "."
+import { ActionManifest, Find, followRoad, Action } from "."
 
-import { getRandomBool, getRandomItem } from "utils"
+import { getRandomBool, getRandomItem, getRandomWeightedItem } from "utils"
 
 export const search = () : ActionManifest => {
 
-  const finds: Find[] = getRandomBool(.5) && [getRandomItem([
+  const find: Find | null = getRandomBool(.25) && getRandomWeightedItem([
     {
-      findDiscription: 'You\'ve found a road.',
-      action: {
-        description: 'Follow the road',
-        act: followRoad
-      }
+      item: {
+        findDiscription: 'You find a road.',
+        action: {
+          description: 'Follow the road',
+          act: followRoad
+        }
+      },
+      weight: 1
     }
-  ])] || []
+  ]) || null
+
   
+  const reactions: Action[] = []
+  if (find) reactions.push(find.action)
+  reactions.push({
+    description: `${find ? 'Search again' : 'Continue searching'}`,
+    act: search
+  })
+
   return {
     result: `
-      You saw a ${getRandomItem(['bird', 'tree', 'frog', 'rock', 'pond'])}. ${finds.map(find => find.findDiscription).join(' ')}
+      ${find ? find.findDiscription : 'You search around and find nothing.'}
     `,
-    reactions: [
-      ...finds.map(find => find.action),
-      {
-        description: `${finds.length == 0 ? 'Search again' : 'Continue searching'}`,
-        act: search
-      }
-    ]
+    reactions: reactions
   }
 }

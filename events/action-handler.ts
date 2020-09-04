@@ -6,13 +6,19 @@ export class ActionHandler {
 
   availibleActions: Action[] = []
 
-  getInitialActions() {
-    return [
-      {
-        description: 'Search',
-        act: search
-      }
-    ]
+
+  initialActions: Action[]
+
+  getInitialActions() : Action[] {
+    if (!this.initialActions) {
+      this.initialActions = [
+        {
+          description: 'Search',
+          act: search
+        }
+      ]
+    }
+    return this.initialActions
   }
   
   setActions(actions?: Action[]) {
@@ -26,15 +32,7 @@ export class ActionHandler {
   act(actionIndex: number) : string {
     const output = []
 
-    console.log(this.availibleActions);
-    console.log(this.getInitialActions());
-    
-    
-
     const actionRef = this.availibleActions[actionIndex]
-
-    console.log(actionRef);
-    
 
     const manifest = actionRef.act()
 
