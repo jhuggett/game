@@ -1,4 +1,4 @@
-import { ActionManifest, Find, followRoad, Action } from "."
+import { ActionManifest, Find, followRoad, goFishing, Action } from "."
 
 import { getRandomBool, getRandomItem, getRandomWeightedItem } from "utils"
 import { Persistor } from "persistancy"
@@ -17,6 +17,16 @@ export const search = () : ActionManifest => {
         }
       },
       weight: 1
+    },
+    {
+      item: {
+        findDiscription: 'You have found a river.',
+        action: {
+          description: 'Go fishing',
+          act: goFishing
+        }
+      },
+      weight: .25
     }
   ]) || null
 

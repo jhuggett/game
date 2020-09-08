@@ -2,7 +2,7 @@ export * from './action-handler'
 export * from './search'
 export * from './follow-road'
 export * from './visit-village'
-
+export * from './fishing'
 
 export interface Action {
   description: string
