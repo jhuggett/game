@@ -16,9 +16,6 @@ export default function Home(props) {
   
 
   useEffect(() => {
-    
-    props.theme.primary = 'orange'
-    
     if (output == '') {
       actionHandler.current.setActions()
       
@@ -46,7 +43,7 @@ export default function Home(props) {
 
         <MainSection>
           <PageHeader>
-            <OptionsButton onClick={() => {setSidebarOpen(!sidebarOpen)}} >
+            <OptionsButton isOpen={sidebarOpen} onClick={() => {setSidebarOpen(!sidebarOpen)}} >
               {!sidebarOpen ? '< Collapse menu' : '> Menu'}
             </OptionsButton>
           </PageHeader>
@@ -77,6 +74,8 @@ const HorizontalStack = styled.div`
 
 const MainSection = styled.div`
   flex-grow: 100;
+  height: 100vh;
+  overflow: auto;
 `
 
 const Sidebar = styled.div<SidebarProps>`
@@ -87,20 +86,23 @@ const Sidebar = styled.div<SidebarProps>`
   border-right: 0.1em solid ${props => props.isOpen ? props.theme.background : props.theme.primary};
 `
 
-const OptionsButton = styled.div`
+const OptionsButton = styled.div<SidebarProps>`
+  height: 100%;
   user-select: none;
   color: ${props => props.theme.primary};
   font-family: ${props => props.theme.font};
   font-size: 1.25em;
   padding: 1em 1em 1em 1em;
   opacity: .05;
+  cursor: pointer;
   transition: 0.3s ease-out;
-  :hover {
-    opacity: 1;
-    color: ${props => props.theme.primary};
-    cursor: pointer;
-    transition: 0.3s ease-out;
-  }
+  ${props => props.isOpen ? `
+    :hover {
+      opacity: 1;
+      
+    }
+  ` : `opacity: 1;`}
+  
 `
 
 const PageHeader = styled.div`
