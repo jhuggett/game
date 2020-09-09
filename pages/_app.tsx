@@ -29,6 +29,7 @@ let theme: Theme = {
 const Background = createGlobalStyle`
   body {
     background: ${(props: ThemeProps) => props.theme.background};
+    overflow: hidden;
   }
   /* width */
   ::-webkit-scrollbar {

@@ -16,9 +16,6 @@ export default function Home(props) {
   
 
   useEffect(() => {
-    
-    props.theme.primary = 'orange'
-    
     if (output == '') {
       actionHandler.current.setActions()
       
@@ -77,6 +74,8 @@ const HorizontalStack = styled.div`
 
 const MainSection = styled.div`
   flex-grow: 100;
+  height: 100vh;
+  overflow: auto;
 `
 
 const Sidebar = styled.div<SidebarProps>`
