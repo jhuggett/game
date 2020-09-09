@@ -1,8 +1,8 @@
 export * from './fish'
 
-import { ActionManifest, search, fish } from '..'
+import { ActionManifest, search, fish, ActionContext } from '..'
 
-export const goFishing = () : ActionManifest => {
+export const goFishing = (context: ActionContext) => () : ActionManifest => {
   
 
 
@@ -12,11 +12,11 @@ export const goFishing = () : ActionManifest => {
     reactions: [
       {
         description: 'Try to catch a fish',
-        act: fish
+        act: fish(context)
       },
       {
         description: 'Go back to exploring',
-        act: search
+        act: search(context)
       }
     ]
   }

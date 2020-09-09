@@ -1,9 +1,10 @@
-import { Find, visitVillage, search } from "."
+import { Find, visitVillage, search, ActionContext } from "."
 
 import { getRandomBool, getRandomItem } from "utils"
 import { Persistor } from "persistancy"
 
-export const followRoad = () => {
+export const followRoad = (context: ActionContext) => () => {
+
 
   let roadsFound = Persistor.retrieve('roadsFound')
   if (!roadsFound) {
@@ -20,7 +21,7 @@ export const followRoad = () => {
       findDiscription: 'The road led to a village.',
       action: {
         description: 'Visit the village',
-        act: visitVillage
+        act: visitVillage(context)
       }
     }
   ]) || null
@@ -29,7 +30,7 @@ export const followRoad = () => {
   if (roadLedTo) reactions.push(roadLedTo.action)
   reactions.push({
     description: `${'Continue exploring'}`,
-    act: search
+    act: search(context)
   })
 
 

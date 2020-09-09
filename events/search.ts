@@ -1,9 +1,9 @@
-import { ActionManifest, Find, followRoad, goFishing, Action } from "."
+import { ActionManifest, Find, followRoad, goFishing, Action, ActionContext } from "."
 
 import { getRandomBool, getRandomItem, getRandomWeightedItem } from "utils"
 import { Persistor } from "persistancy"
 
-export const search = () : ActionManifest => {
+export const search = (context: ActionContext) => () : ActionManifest => {
 
   const roadsFound = Persistor.retrieve('roadsFound')?.total || 0
 
@@ -13,7 +13,7 @@ export const search = () : ActionManifest => {
         findDiscription: roadsFound > 0 ? 'You have found another road.' : 'You find a road.',
         action: {
           description: 'Follow the road',
-          act: followRoad
+          act: followRoad(context)
         }
       },
       weight: 1
@@ -23,7 +23,7 @@ export const search = () : ActionManifest => {
         findDiscription: 'You have found a river.',
         action: {
           description: 'Go fishing',
-          act: goFishing
+          act: goFishing(context)
         }
       },
       weight: .25
@@ -35,7 +35,7 @@ export const search = () : ActionManifest => {
   if (find) reactions.push(find.action)
   reactions.push({
     description: `${find ? getRandomItem(['Search again', 'Keep searching', 'Keep exploring']) : 'Continue searching'}`,
-    act: search
+    act: search(context)
   })
 
   let searchResult: string[] = []

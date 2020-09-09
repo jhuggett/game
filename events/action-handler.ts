@@ -9,12 +9,17 @@ export class ActionHandler {
 
   initialActions: Action[]
 
+  context = {
+    test: 'test'
+  }
+
   getInitialActions() : Action[] {
     if (!this.initialActions) {
+
       this.initialActions = [
         {
           description: 'Search',
-          act: search
+          act: search(this.context)
         }
       ]
     }

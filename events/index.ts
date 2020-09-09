@@ -18,3 +18,7 @@ export interface ActionManifest {
   result: string
   reactions: Action[]
 }
+
+export interface ActionContext {
+  test: string
+}

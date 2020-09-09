@@ -1,11 +1,11 @@
-import styled, { ThemeProvider, createGlobalStyle } from "styled-components"
+import { ThemeProvider, createGlobalStyle } from "styled-components"
 
 
 function App({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <Background />
-      <Component {...pageProps} />
+      <Component theme={theme} {...pageProps} />
     </ThemeProvider>
     )
 }
@@ -17,11 +17,13 @@ interface ThemeProps {
 interface Theme {
   primary: string
   background: string
+  font: string
 }
 
-const theme: Theme = {
-  primary: "orange",
-  background: "black"
+let theme: Theme = {
+  primary: "white",
+  background: "black",
+  font: `"Trebuchet MS", Helvetica, sans-serif`
 }
 
 const Background = createGlobalStyle`
@@ -44,8 +46,6 @@ const Background = createGlobalStyle`
     border-radius: 1em;
     opacity: .5;
   }
-  
-  
 `
 
 
