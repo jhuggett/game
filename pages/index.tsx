@@ -7,9 +7,7 @@ import { ActionHandler } from '../events'
 
 
 export default function Home() {
-
-  
-  const something = useRef(new ActionHandler())  
+  const actionHandler = useRef(new ActionHandler())  
 
   const [output, setOutput] = useState<string>('')
   const [actions, setActions] = useState<string[]>([])
@@ -17,10 +15,10 @@ export default function Home() {
   useEffect(() => {
     
     if (output == '') {
-      something.current.setActions()
+      actionHandler.current.setActions()
       
       setOutput('You are standing in a forest.')
-      setActions(something.current.availibleActions.map(action => action.description))
+      setActions(actionHandler.current.availibleActions.map(action => action.description))
     }
 
   }, [])
@@ -29,9 +27,9 @@ export default function Home() {
     
     
 
-    const newOutput = something.current.act(i)
+    const newOutput = actionHandler.current.act(i)
     setOutput(newOutput)
-    setActions(something.current.availibleActions.map(action => action.description))
+    setActions(actionHandler.current.availibleActions.map(action => action.description))
   }
 
   return (
