@@ -63,11 +63,12 @@ const Footer = styled.div``
 const Output = styled.div`
   color: ${props => props.theme.primary};
   text-align: center;
-  
+  font-family: ${props => props.theme.font};
 `
 
 const Input = styled.div`
   color: ${props => props.theme.primary};
+  font-family: ${props => props.theme.font};
   text-align: center;
   margin: 5em auto;
   width: 50%;

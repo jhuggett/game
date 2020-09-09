@@ -1,7 +1,7 @@
-import { ActionManifest, search } from '.'
+import { ActionManifest, search, ActionContext } from '.'
 import { Persistor } from '../persistancy'
 
-export const visitVillage = () : ActionManifest => {
+export const visitVillage = (context: ActionContext) => () : ActionManifest => {
 
   let villageVisits = Persistor.retrieve('villageVisits')
   
@@ -22,7 +22,7 @@ export const visitVillage = () : ActionManifest => {
     reactions: [
       {
         description: 'Continue exploring',
-        act: search
+        act: search(context)
       }
     ]
   }

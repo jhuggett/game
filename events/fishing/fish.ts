@@ -1,7 +1,7 @@
-import { ActionManifest, search } from '..'
+import { ActionManifest, search, ActionContext } from '..'
 import { getRandomBool } from 'utils'
 
-export const fish = () : ActionManifest => {
+export const fish = (context: ActionContext) => () : ActionManifest => {
   let result = ''
 
   if (getRandomBool(.05)) {
@@ -17,11 +17,11 @@ export const fish = () : ActionManifest => {
     reactions: [
       {
         description: 'Continue fishing',
-        act: fish
+        act: fish(context)
       },
       {
         description: 'Go back to exploring',
-        act: search
+        act: search(context)
       }
     ]
   }
