@@ -5,7 +5,7 @@ function App({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <Background />
-      <Component {...pageProps} />
+      <Component theme={theme} {...pageProps} />
     </ThemeProvider>
     )
 }
@@ -20,7 +20,7 @@ interface Theme {
   font: string
 }
 
-const theme: Theme = {
+let theme: Theme = {
   primary: "white",
   background: "black",
   font: `"Trebuchet MS", Helvetica, sans-serif`

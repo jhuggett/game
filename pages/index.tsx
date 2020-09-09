@@ -6,13 +6,18 @@ import { ActionHandler } from '../events'
 
 
 
-export default function Home() {
+export default function Home(props) {
   const actionHandler = useRef(new ActionHandler())  
 
   const [output, setOutput] = useState<string>('')
   const [actions, setActions] = useState<string[]>([])
 
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(true)
+  
+
   useEffect(() => {
+    
+    props.theme.primary = 'orange'
     
     if (output == '') {
       actionHandler.current.setActions()
@@ -34,21 +39,72 @@ export default function Home() {
 
   return (
     <>
-      <PageHeader></PageHeader>
-      <Body>
-        <Output>
-          {output}
-        </Output>
-        <Input>
-          <SelectList inputs={actions} setChosen={act} />
-        </Input>
-      </Body>
-      <Footer></Footer>
+      <HorizontalStack>
+        <Sidebar isOpen={sidebarOpen}>
+
+        </Sidebar>
+
+        <MainSection>
+          <PageHeader>
+            <OptionsButton onClick={() => {setSidebarOpen(!sidebarOpen)}} >
+              {!sidebarOpen ? '< Collapse menu' : '> Menu'}
+            </OptionsButton>
+          </PageHeader>
+
+          <Body>
+            <Output>
+              {output}
+            </Output>
+            <Input>
+              <SelectList inputs={actions} setChosen={act} />
+            </Input>
+          </Body>
+
+          <Footer></Footer>
+        </MainSection>
+      </HorizontalStack>
     </>
   )
 }
 
+interface SidebarProps {
+  isOpen: boolean
+}
+
+const HorizontalStack = styled.div`
+  display: flex;
+`
+
+const MainSection = styled.div`
+  flex-grow: 100;
+`
+
+const Sidebar = styled.div<SidebarProps>`
+  transition: 0.3s ease-out;
+  opacity: ${props => props.isOpen ? '0' : '.33'};
+  height: 100vh;
+  width: ${props => props.isOpen ? '0%' : '250px'};
+  border-right: 0.1em solid ${props => props.isOpen ? props.theme.background : props.theme.primary};
+`
+
+const OptionsButton = styled.div`
+  user-select: none;
+  color: ${props => props.theme.primary};
+  font-family: ${props => props.theme.font};
+  font-size: 1.25em;
+  padding: 1em 1em 1em 1em;
+  opacity: .05;
+  transition: 0.3s ease-out;
+  :hover {
+    opacity: 1;
+    color: ${props => props.theme.primary};
+    cursor: pointer;
+    transition: 0.3s ease-out;
+  }
+`
+
 const PageHeader = styled.div`
+  display: flex;
   height: 20px;
 `
 
