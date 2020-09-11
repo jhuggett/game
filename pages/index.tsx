@@ -3,14 +3,18 @@ import { useState, useEffect, useRef } from 'react'
 import { getRandomItem, getRandomBool, getRandomNumber, range, shuffle } from 'utils'
 import { SelectList } from 'components'
 import { ActionHandler } from '../events'
+import { MenuHandler, MenuItem } from 'Menu'
 
 
 
 export default function Home(props) {
   const actionHandler = useRef(new ActionHandler())  
+  const menuHandler = useRef(new MenuHandler({ themeHandler: props.themeHandler }))
 
   const [output, setOutput] = useState<string>('')
   const [actions, setActions] = useState<string[]>([])
+
+  const [menuOptions, setMenuOptions] = useState<MenuItem[]>(menuHandler.current.getCurrentOptions())
 
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true)
   
@@ -26,19 +30,24 @@ export default function Home(props) {
   }, [])
 
   const act = (i: number) => {
-    
-    
-
     const newOutput = actionHandler.current.act(i)
     setOutput(newOutput)
     setActions(actionHandler.current.availibleActions.map(action => action.description))
+  }
+
+  const menuItemSelected = (i: number) => {
+    console.log(menuOptions);
+    
+    menuHandler.current.selectOption(menuOptions[i].index)
+    setMenuOptions(menuHandler.current.getCurrentOptions())
+    console.log(menuOptions);
   }
 
   return (
     <>
       <HorizontalStack>
         <Sidebar isOpen={sidebarOpen}>
-
+          <SelectList inputs={menuOptions.map(item => item.name)} setChosen={menuItemSelected} />
         </Sidebar>
 
         <MainSection>
@@ -79,11 +88,12 @@ const MainSection = styled.div`
 `
 
 const Sidebar = styled.div<SidebarProps>`
-  transition: 0.3s ease-out;
+  transition: 0.4s ease-out;
   opacity: ${props => props.isOpen ? '0' : '.33'};
   height: 100vh;
   width: ${props => props.isOpen ? '0%' : '250px'};
   border-right: 0.1em solid ${props => props.isOpen ? props.theme.background : props.theme.primary};
+  ${props => props.isOpen && 'pointer-events: none;'}
 `
 
 const OptionsButton = styled.div<SidebarProps>`
@@ -93,9 +103,9 @@ const OptionsButton = styled.div<SidebarProps>`
   font-family: ${props => props.theme.font};
   font-size: 1.25em;
   padding: 1em 1em 1em 1em;
-  opacity: .05;
+  opacity: 0;
   cursor: pointer;
-  transition: 0.3s ease-out;
+  transition: 0.5s ease-out;
   ${props => props.isOpen ? `
     :hover {
       opacity: 1;

@@ -1,29 +1,32 @@
 import { ThemeProvider, createGlobalStyle } from "styled-components"
+import { useRef, useState, useEffect } from "react"
+import { ThemeHandler, Theme } from "Theme"
 
 
 function App({ Component, pageProps }) {
+  const [theme, setTheme] = useState<Theme>(initialTheme)
+  const themeHandler = useRef(new ThemeHandler(setTheme))
+
+  useEffect(() => {
+    themeHandler.current.loadTheme(initialTheme)
+  }, [])
+
   return (
     <ThemeProvider theme={theme}>
       <Background />
-      <Component theme={theme} {...pageProps} />
+      <Component themeHandler={themeHandler} {...pageProps} />
     </ThemeProvider>
     )
 }
 
-interface ThemeProps {
-  theme: Theme
-}
-
-interface Theme {
-  primary: string
-  background: string
-  font: string
-}
-
-let theme: Theme = {
+const initialTheme: Theme = {
   primary: "white",
   background: "black",
   font: `"Trebuchet MS", Helvetica, sans-serif`
+}
+
+interface ThemeProps {
+  theme: Theme
 }
 
 const Background = createGlobalStyle`
