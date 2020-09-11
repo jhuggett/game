@@ -27,6 +27,7 @@ const Choice = styled.div`
   margin: .25em .25em .25em .25em;
   padding: 15px 15px 15px 15px;
   border: 0.1em solid transparent;
+  color: ${props => props.theme.primary};
   :hover {
     border: 0.1em solid ${props => props.theme.primary};
     cursor: pointer;
