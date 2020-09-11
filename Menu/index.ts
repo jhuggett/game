@@ -53,14 +53,11 @@ export class MenuHandler {
     selectedOption.action(this.context)
   }
 
-  getOptionAtStack(stack: number[]) : MenuChoice {
-    console.log('stack', stack);
-    
+  getOptionAtStack(stack: number[]) : MenuChoice {    
     let currentSelector = null
 
     stack.forEach( item => {
-      console.log(currentSelector);
-      
+
       if (!currentSelector) {
         currentSelector = menuContent[item]
         return
@@ -70,8 +67,6 @@ export class MenuHandler {
       }
       currentSelector = currentSelector.childChoices[item]
     })
-
-    console.log('final', currentSelector);
     
     return currentSelector
   }

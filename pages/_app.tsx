@@ -14,7 +14,7 @@ function App({ Component, pageProps }) {
   return (
     <ThemeProvider theme={theme}>
       <Background />
-      <Component themeHandler={themeHandler} {...pageProps} />
+      <Component themeHandler={themeHandler.current} {...pageProps} />
     </ThemeProvider>
     )
 }

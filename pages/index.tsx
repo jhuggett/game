@@ -89,11 +89,12 @@ const MainSection = styled.div`
 
 const Sidebar = styled.div<SidebarProps>`
   transition: 0.4s ease-out;
-  opacity: ${props => props.isOpen ? '0' : '.33'};
+  opacity: ${props => props.isOpen ? '0' : '1'};
   height: 100vh;
   width: ${props => props.isOpen ? '0%' : '250px'};
   border-right: 0.1em solid ${props => props.isOpen ? props.theme.background : props.theme.primary};
   ${props => props.isOpen && 'pointer-events: none;'}
+  overflow-x: hidden;
 `
 
 const OptionsButton = styled.div<SidebarProps>`
