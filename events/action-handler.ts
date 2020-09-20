@@ -1,5 +1,6 @@
 import { Action } from "."
 import { search } from './search'
+import { GameTime } from "time"
 
 
 export class ActionHandler {
@@ -10,7 +11,7 @@ export class ActionHandler {
   initialActions: Action[]
 
   context = {
-    test: 'test'
+    time: new GameTime(0)
   }
 
   getInitialActions() : Action[] {
@@ -44,6 +45,7 @@ export class ActionHandler {
     output.push(`${manifest.result}`)
 
     this.setActions(manifest.reactions)
+  
 
     return output.join(' ')
   }

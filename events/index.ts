@@ -4,6 +4,8 @@ export * from './follow-road'
 export * from './visit-village'
 export * from './fishing'
 
+import { TimeAmount, GameTime } from '../time'
+
 export interface Action {
   description: string
   act: () => ActionManifest
@@ -20,5 +22,5 @@ export interface ActionManifest {
 }
 
 export interface ActionContext {
-  test: string
+  time: GameTime
 }
