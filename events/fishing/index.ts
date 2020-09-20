@@ -3,7 +3,13 @@ export * from './fish'
 import { ActionManifest, search, fish, ActionContext } from '..'
 
 export const goFishing = (context: ActionContext) => () : ActionManifest => {
-  
+  context.time.pushTime(
+    {
+      hours: 0,
+      minutes: 1,
+      seconds: 0
+    }
+  )
 
 
 

@@ -2,6 +2,15 @@ import { ActionManifest, search, ActionContext } from '..'
 import { getRandomBool } from 'utils'
 
 export const fish = (context: ActionContext) => () : ActionManifest => {
+  context.time.pushTime(
+    {
+      hours: 0,
+      minutes: 30,
+      seconds: 0
+    }
+  )
+
+
   let result = ''
 
   if (getRandomBool(.05)) {

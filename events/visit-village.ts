@@ -2,6 +2,14 @@ import { ActionManifest, search, ActionContext } from '.'
 import { Persistor } from '../persistancy'
 
 export const visitVillage = (context: ActionContext) => () : ActionManifest => {
+  context.time.pushTime(
+    {
+      hours: 1,
+      minutes: 0,
+      seconds: 0
+    }
+  )
+
 
   let villageVisits = Persistor.retrieve('villageVisits')
   

@@ -4,7 +4,13 @@ import { getRandomBool, getRandomItem } from "utils"
 import { Persistor } from "persistancy"
 
 export const followRoad = (context: ActionContext) => () => {
-
+  context.time.pushTime(
+    {
+      hours: 0,
+      minutes: 30,
+      seconds: 0
+    }
+  )
 
   let roadsFound = Persistor.retrieve('roadsFound')
   if (!roadsFound) {

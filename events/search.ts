@@ -4,6 +4,13 @@ import { getRandomBool, getRandomItem, getRandomWeightedItem } from "utils"
 import { Persistor } from "persistancy"
 
 export const search = (context: ActionContext) => () : ActionManifest => {
+  context.time.pushTime(
+    {
+      hours: 2,
+      minutes: 0,
+      seconds: 0
+    }
+  )
 
   const roadsFound = Persistor.retrieve('roadsFound')?.total || 0
 
@@ -58,6 +65,9 @@ export const search = (context: ActionContext) => () : ActionManifest => {
     searchResult.push('Your search yeilded nothing of real value.')
   }
 
+  if (context.time.getCurrentHour() < 5 || context.time.getCurrentHour() > 18) {
+    searchResult.push('It is dark, night is upon you.')
+  }
 
   return {
     result: searchResult.join(' '),
