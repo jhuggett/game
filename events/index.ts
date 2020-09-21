@@ -8,7 +8,7 @@ import { TimeAmount, GameTime } from '../time'
 
 export interface Action {
   description: string
-  act: () => ActionManifest
+  act: (context: ActionContext) => () => ActionManifest
 }
 
 export interface Find {

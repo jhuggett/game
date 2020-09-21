@@ -27,7 +27,7 @@ export const followRoad = (context: ActionContext) => () => {
       findDiscription: 'The road led to a village.',
       action: {
         description: 'Visit the village',
-        act: visitVillage(context)
+        act: visitVillage
       }
     }
   ]) || null
@@ -36,7 +36,7 @@ export const followRoad = (context: ActionContext) => () => {
   if (roadLedTo) reactions.push(roadLedTo.action)
   reactions.push({
     description: `${'Continue exploring'}`,
-    act: search(context)
+    act: search
   })
 
 

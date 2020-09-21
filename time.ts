@@ -1,3 +1,4 @@
+import { Persistor, Persistant } from "persistancy"
 
 export interface TimeAmount {
   hours: number
@@ -5,7 +6,8 @@ export interface TimeAmount {
   seconds: number
 }
 
-export class GameTime {
+
+export class GameTime implements Persistant {
 
   hoursInADay = 24
   minutesInAHour = 60
@@ -15,9 +17,13 @@ export class GameTime {
   
   secondsInAHour = this.secondsInADay / this.hoursInADay
   
-  
+  currTime
 
-  constructor(private currTime: number) {}
+  constructor() {
+    console.log('construct');
+    
+    this.retrieve()
+  }
 
 
   pushTime(amount: TimeAmount) {
@@ -25,10 +31,24 @@ export class GameTime {
                         amount.minutes * this.secondsInAMinute +
                         amount.seconds
     this.currTime = (this.currTime + newSeconds) % this.secondsInADay
+    
+    this.persist()
   }
 
   getCurrentHour() : number {
     return Math.floor(this.currTime / this.secondsInAHour)
+  }
+
+  key = 'game-time'
+
+  persist() {
+    Persistor.persist(this.key, { currTime: this.currTime })
+  } 
+
+  retrieve() {
+    console.log(Persistor.retrieve(this.key));
+    
+    this.currTime = Persistor.retrieve(this.key)?.currTime || 0
   }
 
 }

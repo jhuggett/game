@@ -18,11 +18,11 @@ export const goFishing = (context: ActionContext) => () : ActionManifest => {
     reactions: [
       {
         description: 'Try to catch a fish',
-        act: fish(context)
+        act: fish
       },
       {
         description: 'Go back to exploring',
-        act: search(context)
+        act: search
       }
     ]
   }

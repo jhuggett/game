@@ -26,11 +26,11 @@ export const fish = (context: ActionContext) => () : ActionManifest => {
     reactions: [
       {
         description: 'Continue fishing',
-        act: fish(context)
+        act: fish
       },
       {
         description: 'Go back to exploring',
-        act: search(context)
+        act: search
       }
     ]
   }

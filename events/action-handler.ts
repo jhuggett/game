@@ -10,8 +10,14 @@ export class ActionHandler {
 
   initialActions: Action[]
 
+  constructor() {
+    console.log('action handler constructer');
+    
+  }
+  
+
   context = {
-    time: new GameTime(0)
+    time: new GameTime()
   }
 
   getInitialActions() : Action[] {
@@ -20,7 +26,7 @@ export class ActionHandler {
       this.initialActions = [
         {
           description: 'Search',
-          act: search(this.context)
+          act: search
         }
       ]
     }
@@ -40,7 +46,7 @@ export class ActionHandler {
 
     const actionRef = this.availibleActions[actionIndex]
 
-    const manifest = actionRef.act()
+    const manifest = actionRef.act(this.context)()
 
     output.push(`${manifest.result}`)
 
