@@ -20,7 +20,7 @@ export const search = (context: ActionContext) => () : ActionManifest => {
         findDiscription: roadsFound > 0 ? 'You have found another road.' : 'You find a road.',
         action: {
           description: 'Follow the road',
-          act: followRoad(context)
+          act: followRoad
         }
       },
       weight: 1
@@ -30,7 +30,7 @@ export const search = (context: ActionContext) => () : ActionManifest => {
         findDiscription: 'You have found a river.',
         action: {
           description: 'Go fishing',
-          act: goFishing(context)
+          act: goFishing
         }
       },
       weight: .25
@@ -42,7 +42,7 @@ export const search = (context: ActionContext) => () : ActionManifest => {
   if (find) reactions.push(find.action)
   reactions.push({
     description: `${find ? getRandomItem(['Search again', 'Keep searching', 'Keep exploring']) : 'Continue searching'}`,
-    act: search(context)
+    act: search
   })
 
   let searchResult: string[] = []

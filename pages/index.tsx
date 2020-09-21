@@ -6,20 +6,23 @@ import { ActionHandler } from '../events'
 import { MenuHandler, MenuItem } from 'Menu'
 
 
-
 export default function Home(props) {
-  const actionHandler = useRef(new ActionHandler())  
-  const menuHandler = useRef(new MenuHandler({ themeHandler: props.themeHandler }))
+  const actionHandler = useRef(null)  
+  const menuHandler = useRef(null)
 
   const [output, setOutput] = useState<string>('')
   const [actions, setActions] = useState<string[]>([])
 
-  const [menuOptions, setMenuOptions] = useState<MenuItem[]>(menuHandler.current.getCurrentOptions())
+  const [menuOptions, setMenuOptions] = useState<MenuItem[]>()
 
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true)
   
 
   useEffect(() => {
+    actionHandler.current = new ActionHandler()
+    menuHandler.current = new MenuHandler({ themeHandler: props.themeHandler })
+    setMenuOptions(menuHandler.current.getCurrentOptions())
+
     if (output == '') {
       actionHandler.current.setActions()
       
@@ -36,18 +39,15 @@ export default function Home(props) {
   }
 
   const menuItemSelected = (i: number) => {
-    console.log(menuOptions);
-    
     menuHandler.current.selectOption(menuOptions[i].index)
     setMenuOptions(menuHandler.current.getCurrentOptions())
-    console.log(menuOptions);
   }
 
   return (
     <>
       <HorizontalStack>
         <Sidebar isOpen={sidebarOpen}>
-          <SelectList inputs={menuOptions.map(item => item.name)} setChosen={menuItemSelected} />
+          <SelectList inputs={menuOptions?.map(item => item.name) || []} setChosen={menuItemSelected} />
         </Sidebar>
 
         <MainSection>

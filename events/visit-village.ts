@@ -30,7 +30,7 @@ export const visitVillage = (context: ActionContext) => () : ActionManifest => {
     reactions: [
       {
         description: 'Continue exploring',
-        act: search(context)
+        act: search
       }
     ]
   }
