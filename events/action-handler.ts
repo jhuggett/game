@@ -1,6 +1,7 @@
 import { Action } from "."
 import { search } from './search'
 import { GameTime } from "time"
+import { Player } from "Player"
 
 
 export class ActionHandler {
@@ -9,15 +10,11 @@ export class ActionHandler {
 
 
   initialActions: Action[]
-
-  constructor() {
-    console.log('action handler constructer');
-    
-  }
   
 
   context = {
-    time: new GameTime()
+    time: new GameTime(),
+    player: new Player()
   }
 
   getInitialActions() : Action[] {
@@ -43,6 +40,7 @@ export class ActionHandler {
 
   act(actionIndex: number) : string {
     const output = []
+    
 
     const actionRef = this.availibleActions[actionIndex]
 

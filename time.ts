@@ -1,4 +1,4 @@
-import { Persistor, Persistant } from "persistancy"
+import { Persistor, Persistant } from "Persistancy"
 
 export interface TimeAmount {
   hours: number

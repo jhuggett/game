@@ -1,7 +1,7 @@
 import { ActionManifest, Find, followRoad, goFishing, Action, ActionContext } from "."
 
 import { getRandomBool, getRandomItem, getRandomWeightedItem } from "utils"
-import { Persistor } from "persistancy"
+import { Persistor } from "Persistancy"
 
 export const search = (context: ActionContext) => () : ActionManifest => {
   context.time.pushTime(
@@ -46,6 +46,7 @@ export const search = (context: ActionContext) => () : ActionManifest => {
   })
 
   let searchResult: string[] = []
+  searchResult.push(context.player.id)
   if (getRandomBool(.75)) searchResult.push(getRandomWeightedItem([
     {
       item: `A ${getRandomItem(['lark', 'sparrow', 'hawk', 'eagle', 'crow', 'raven'])} flies overhead as you walk around.`,

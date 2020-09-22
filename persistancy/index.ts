@@ -4,6 +4,8 @@ export interface Persistant {
   retrieve: () => void
 }
 
+
+
 class PersistanceHandler {
 
   persist(key: string, value: any) {
@@ -14,6 +16,10 @@ class PersistanceHandler {
   retrieve(key: string) : any {
     const json = localStorage.getItem(key)
     return JSON.parse(json)
+  }
+
+  removePersistant(object: Persistant) {
+    this.remove(object.key)
   }
 
   remove(key: string) {
