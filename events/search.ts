@@ -1,7 +1,8 @@
 import { ActionManifest, Find, followRoad, goFishing, Action, ActionContext } from "."
 
 import { getRandomBool, getRandomItem, getRandomWeightedItem } from "utils"
-import { Persistor } from "persistancy"
+import { Persistor } from "Persistancy"
+import { coyoteBehindYou } from "./coyote"
 
 export const search = (context: ActionContext) => () : ActionManifest => {
   context.time.pushTime(
@@ -11,6 +12,10 @@ export const search = (context: ActionContext) => () : ActionManifest => {
       seconds: 0
     }
   )
+
+  if (getRandomBool(0.1)) {
+    return coyoteBehindYou(context)()
+  }
 
   const roadsFound = Persistor.retrieve('roadsFound')?.total || 0
 

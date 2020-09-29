@@ -5,6 +5,7 @@ export * from './visit-village'
 export * from './fishing'
 
 import { TimeAmount, GameTime } from '../time'
+import { Player } from 'Player'
 
 export interface Action {
   description: string
@@ -23,4 +24,5 @@ export interface ActionManifest {
 
 export interface ActionContext {
   time: GameTime
+  player: Player
 }
