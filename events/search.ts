@@ -2,6 +2,7 @@ import { ActionManifest, Find, followRoad, goFishing, Action, ActionContext } fr
 
 import { getRandomBool, getRandomItem, getRandomWeightedItem } from "utils"
 import { Persistor } from "Persistancy"
+import { coyoteBehindYou } from "./coyote"
 
 export const search = (context: ActionContext) => () : ActionManifest => {
   context.time.pushTime(
@@ -11,6 +12,10 @@ export const search = (context: ActionContext) => () : ActionManifest => {
       seconds: 0
     }
   )
+
+  if (getRandomBool(0.1)) {
+    return coyoteBehindYou(context)()
+  }
 
   const roadsFound = Persistor.retrieve('roadsFound')?.total || 0
 
@@ -46,7 +51,6 @@ export const search = (context: ActionContext) => () : ActionManifest => {
   })
 
   let searchResult: string[] = []
-  searchResult.push(context.player.id)
   if (getRandomBool(.75)) searchResult.push(getRandomWeightedItem([
     {
       item: `A ${getRandomItem(['lark', 'sparrow', 'hawk', 'eagle', 'crow', 'raven'])} flies overhead as you walk around.`,
