@@ -1,7 +1,7 @@
 import { Find, visitVillage, search, ActionContext } from "."
 
 import { getRandomBool, getRandomItem } from "utils"
-import { Persistor } from "../Persistancy"
+import { Persistor } from "../Persistance"
 
 export const followRoad = (context: ActionContext) => () => {
   context.time.pushTime(

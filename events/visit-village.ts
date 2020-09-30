@@ -1,5 +1,5 @@
 import { ActionManifest, search, ActionContext } from '.'
-import { Persistor } from '../Persistancy'
+import { Persistor } from '../Persistance'
 
 export const visitVillage = (context: ActionContext) => () : ActionManifest => {
   context.time.pushTime(
