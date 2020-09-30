@@ -1,4 +1,4 @@
-import { Persistant, Persistor } from '../Persistancy';
+import { Persistant, Persistor } from '../Persistance';
 import { v4 as uuid } from 'uuid'
 
 export class Inventory implements Persistant {

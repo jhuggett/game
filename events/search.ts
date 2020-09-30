@@ -1,7 +1,7 @@
 import { ActionManifest, Find, followRoad, goFishing, Action, ActionContext } from "."
 
 import { getRandomBool, getRandomItem, getRandomWeightedItem } from "utils"
-import { Persistor } from "Persistancy"
+import { Persistor } from "Persistance"
 import { coyoteBehindYou } from "./coyote"
 
 export const search = (context: ActionContext) => () : ActionManifest => {
