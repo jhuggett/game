@@ -14,7 +14,8 @@ export class ActionHandler {
 
   context = {
     time: new GameTime(),
-    player: new Player()
+    player: new Player(),
+    data: {}
   }
 
   getInitialActions() : Action[] {

@@ -1,34 +1,18 @@
+export * from './inventory'
+
 import { Persistant, Persistor } from '../Persistance';
 import { v4 as uuid } from 'uuid'
-
-export class Inventory implements Persistant {
-
-  constructor(ownerId: string) {
-    this.key = `${ownerId}-inventory`
-  }
-  
-
-  key: string
-
-  persist() {
-
-  }
-
-  retrieve() {
-
-  }
-
-}
-
+import { Item } from '../Items'
+import { Inventory } from '.';
 
 export class Player implements Persistant {
   id: string
 
   inventory: Inventory
 
-  constructor() {
+  constructor() {    
     this.retrieve()
-    if (!this.id) {
+    if (!this.id) {      
       this.id = uuid()
       this.inventory = new Inventory(this.id)
       this.persist()
@@ -38,10 +22,11 @@ export class Player implements Persistant {
 
   key: string = 'player'
 
-  persist() {
+  persist() {    
     Persistor.persist(this.key, {
       id: this.id
     })
+    
     this.inventory.persist()
   }
 

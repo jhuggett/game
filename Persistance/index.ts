@@ -4,7 +4,9 @@ export interface Persistant {
   retrieve: () => void
 }
 
-
+export interface ProvidesDataToPersist {
+  provideDataToPersist: () => string
+}
 
 class PersistanceHandler {
 
