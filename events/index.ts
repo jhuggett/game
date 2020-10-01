@@ -4,7 +4,7 @@ export * from './follow-road'
 export * from './visit-village'
 export * from './fishing'
 
-import { TimeAmount, GameTime } from '../time'
+import { GameTime } from '../time'
 import { Player } from 'Player'
 
 export interface Action {
@@ -22,7 +22,13 @@ export interface ActionManifest {
   reactions: Action[]
 }
 
+export interface ActionContextualData {
+  [x: string] : any // this is a index signature to emulate dictionary-like behaviour
+}
+
 export interface ActionContext {
   time: GameTime
   player: Player
+
+  data: ActionContextualData
 }

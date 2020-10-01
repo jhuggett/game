@@ -3,6 +3,8 @@ import { ActionManifest, Find, followRoad, goFishing, Action, ActionContext } fr
 import { getRandomBool, getRandomItem, getRandomWeightedItem } from "utils"
 import { Persistor } from "Persistance"
 import { coyoteBehindYou } from "./coyote"
+import { pickUpRock } from "./rock"
+import { foundMushroom } from "./mushroom"
 
 export const search = (context: ActionContext) => () : ActionManifest => {
   context.time.pushTime(
@@ -17,9 +19,13 @@ export const search = (context: ActionContext) => () : ActionManifest => {
     return coyoteBehindYou(context)()
   }
 
+  if (getRandomBool(0.2)) {
+    return foundMushroom(context)()
+  }
+
   const roadsFound = Persistor.retrieve('roadsFound')?.total || 0
 
-  const find: Find | null = getRandomBool(.25) && getRandomWeightedItem([
+  const find: Find | null = getRandomBool(.5) && getRandomWeightedItem([
     {
       item: {
         findDiscription: roadsFound > 0 ? 'You have found another road.' : 'You find a road.',
@@ -39,6 +45,16 @@ export const search = (context: ActionContext) => () : ActionManifest => {
         }
       },
       weight: .25
+    },
+    {
+      item: {
+        findDiscription: 'You have found a rock.',
+        action: {
+          description: 'Pick up the rock',
+          act: pickUpRock
+        }
+      },
+      weight: .75
     }
   ]) || null
 
