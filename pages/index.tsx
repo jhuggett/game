@@ -4,6 +4,7 @@ import { getRandomItem, getRandomBool, getRandomNumber, range, shuffle } from 'u
 import { SelectList } from 'components'
 import { ActionHandler } from '../events'
 import { MenuHandler, MenuItem } from 'Menu'
+import { InventoryView } from 'components/inventory'
 
 
 export default function Home(props) {
@@ -17,6 +18,7 @@ export default function Home(props) {
 
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(true)
   
+  const [showInventory, setShowInventory] = useState<boolean>(false)
 
   useEffect(() => {
     actionHandler.current = new ActionHandler()
@@ -52,18 +54,38 @@ export default function Home(props) {
 
         <MainSection>
           <PageHeader>
-            <OptionsButton isOpen={sidebarOpen} onClick={() => {setSidebarOpen(!sidebarOpen)}} >
-              {!sidebarOpen ? '< Collapse menu' : '> Menu'}
-            </OptionsButton>
+            <LeftJustified>
+              <OptionsButton isOpen={sidebarOpen} onClick={() => {setSidebarOpen(!sidebarOpen)}} >
+                {!sidebarOpen ? '< Collapse menu' : '> Menu'}
+              </OptionsButton>
+            </LeftJustified>
+
+            <RightJustified>
+              <OptionsButton isOpen={!showInventory} onClick={() => {setShowInventory(!showInventory)}} >
+                {showInventory ? 'Close Inventory >' : 'Open Inventory <'}
+              </OptionsButton>
+
+            </RightJustified>
+
+            
+            
           </PageHeader>
 
           <Body>
-            <Output>
-              {output}
-            </Output>
-            <Input>
-              <SelectList inputs={actions} setChosen={act} />
-            </Input>
+            {!showInventory 
+              ? <> 
+              <Output>
+                {output}
+              </Output>
+              <Input>
+                <SelectList inputs={actions} setChosen={act} />
+              </Input>
+            </>
+            : <>
+              <InventoryView player={actionHandler.current.context.player} />
+            </>
+            
+            }
           </Body>
 
           <Footer></Footer>
@@ -76,6 +98,15 @@ export default function Home(props) {
 interface SidebarProps {
   isOpen: boolean
 }
+
+const LeftJustified = styled.div`
+  width: 50%;
+`
+
+const RightJustified = styled.div`
+  width: 50%;
+  text-align: right;
+`
 
 const HorizontalStack = styled.div`
   display: flex;
