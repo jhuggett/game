@@ -2,6 +2,7 @@ export * from './rock'
 export * from './item-directory'
 
 interface ItemContent {
+  id: string
   link: string
   name: string
 }
