@@ -25,11 +25,23 @@ export class GameTime implements Persistant {
     this.retrieve()
   }
 
+  pushTill(hour) {
+    const pushAmount = hour - this.getCurrentHour()
+
+    this.pushTime({
+      hours: pushAmount < 0 ? pushAmount * -1 : pushAmount,
+      minutes: 0,
+      seconds: 0
+    })
+  }
+
 
   pushTime(amount: TimeAmount) {
+    console.log(amount);
+    
     const newSeconds = amount.hours * this.secondsInAHour +
                         amount.minutes * this.secondsInAMinute +
-                        amount.seconds
+                        amount.seconds 
     this.currTime = (this.currTime + newSeconds) % this.secondsInADay
     
     this.persist()

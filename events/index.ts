@@ -32,3 +32,15 @@ export interface ActionContext {
 
   data: ActionContextualData
 }
+
+// Action example:
+
+// const example = (context: ActionContext) => () : ActionManifest => {
+
+//   return {
+//     result: '',
+//     reactions: [
+
+//     ]
+//   }
+// }

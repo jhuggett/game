@@ -16,8 +16,10 @@ export const InventoryView = ({ player } : InventoryViewProps) => {
     <List>
       {player.inventory.items.map(item => (
         <li>
-          {item.name}
-          <div onClick={() => {player.inventory.removeItem(item); updateState(!state)}}>Drop</div>
+          <div>
+            {item.name} <button onClick={() => {player.inventory.removeItem(item); updateState(!state)}}>Drop</button>
+          </div>
+          
         </li>
       ))}
     </List>
