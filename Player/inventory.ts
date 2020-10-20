@@ -25,6 +25,11 @@ export class Inventory implements Persistant {
     this.persist()
   }
 
+  removeItem(item: Item) {
+    this.items = this.items.filter(invetoryItem => item.id != invetoryItem.id)
+    this.persist()
+  }
+
   persist() {    
     Persistor.persist(this.key, {
       items: this.items.map(item => item.getImportantData())

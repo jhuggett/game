@@ -5,6 +5,7 @@ import { Persistor } from "Persistance"
 import { coyoteBehindYou } from "./coyote"
 import { pickUpRock } from "./rock"
 import { foundMushroom } from "./mushroom"
+import { camp } from "./camp"
 
 export const search = (context: ActionContext) => () : ActionManifest => {
   context.time.pushTime(
@@ -60,6 +61,14 @@ export const search = (context: ActionContext) => () : ActionManifest => {
 
   
   const reactions: Action[] = []
+
+  if (context.time.getCurrentHour() < 5 || context.time.getCurrentHour() > 18) {
+    reactions.push({
+      description: "Set up camp",
+      act: camp
+    })
+  }
+
   if (find) reactions.push(find.action)
   reactions.push({
     description: `${find ? getRandomItem(['Search again', 'Keep searching', 'Keep exploring']) : 'Continue searching'}`,
@@ -67,6 +76,7 @@ export const search = (context: ActionContext) => () : ActionManifest => {
   })
 
   let searchResult: string[] = []
+  
   if (getRandomBool(.75)) searchResult.push(getRandomWeightedItem([
     {
       item: `A ${getRandomItem(['lark', 'sparrow', 'hawk', 'eagle', 'crow', 'raven'])} flies overhead as you walk around.`,

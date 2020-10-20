@@ -10,6 +10,7 @@ export class Player implements Persistant {
 
   inventory: Inventory
 
+
   constructor() {    
     this.retrieve()
     if (!this.id) {      
@@ -24,7 +25,7 @@ export class Player implements Persistant {
 
   persist() {    
     Persistor.persist(this.key, {
-      id: this.id
+      id: this.id,
     })
     
     this.inventory.persist()

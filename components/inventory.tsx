@@ -1,5 +1,6 @@
 import { Player, Inventory } from "Player";
 import styled from "styled-components";
+import { useState } from "react";
 
 interface InventoryViewProps {
   player: Player
@@ -8,13 +9,17 @@ interface InventoryViewProps {
 
 export const InventoryView = ({ player } : InventoryViewProps) => {
 
+  const [state, updateState] = useState(true)
 
   return (
     <>
     <List>
       {player.inventory.items.map(item => (
         <li>
-          {item.name}
+          <div>
+            {item.name} <button onClick={() => {player.inventory.removeItem(item); updateState(!state)}}>Drop</button>
+          </div>
+          
         </li>
       ))}
     </List>

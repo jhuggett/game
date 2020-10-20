@@ -66,9 +66,6 @@ export default function Home(props) {
               </OptionsButton>
 
             </RightJustified>
-
-            
-            
           </PageHeader>
 
           <Body>
